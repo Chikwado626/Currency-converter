@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ConversionResult = () => {
-  return (
-    <div>ConversionResult</div>
-  )
-}
+  return <div>ConversionResult</div>;
+};
 
-export default ConversionResult
+export default ConversionResult;

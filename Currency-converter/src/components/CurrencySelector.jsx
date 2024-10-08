@@ -1,36 +1,77 @@
-import axios from 'axios'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import ReactCountryFlag from "react-country-flag";
 
+const currencyToCountryMap = {
+  USD: "US",
+  EUR: "EU",
+  NGN: "NG", // Add more mappings as necessary
+};
 
-const CurrencySelector = () => {
+const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
+  const [exchangeRates, setExchangeRates] = useState({});
+  const [loading, setLoading] = useState(true);
 
-    const [moneyCurrency, setMoneyCurrency] = useState({});
+  useEffect(() => {
+    const fetchExchangeRates = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.exchangerate-api.com/v4/latest/USD"
+        );
+        setExchangeRates(response.data.rates);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching exchange rates", error);
+      }
+    };
+    fetchExchangeRates();
+  }, []);
 
-    useEffect( () => {
-
-        const fetchData = async () => {
-
-        
-        const result = await axios.get("https://v6.exchangerate-api.com/v6/88a8c9d2e5170f5c4b208ed2/latest/USD");
-        console.log(result)
-        setMoneyCurrency(result.data?.conversion_rates)
-    }
-
-    fetchData();
-    }, [])
-
-    console.log(Object.keys(moneyCurrency))
+  const handleCurrencyChange = (event) => {
+    onCurrencyChange(event.target.value);
+  };
 
   return (
-   
-      <select name="" id="">
-        {(Object.keys(moneyCurrency)).map((data, i) => (
- <option key={i} value={data}>{data}</option>
-))}
-       
-      </select>
-  
-  )
-}
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <label htmlFor="currency-select" className="block mb-2">
+            Select Currency
+          </label>
+          <select
+            id="currency-select"
+            onChange={handleCurrencyChange}
+            value={selectedCurrency}
+            className="px-4 py-2 border border-gray-400 rounded shadow"
+          >
+            {Object.keys(exchangeRates).map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
+          </select>
 
-export default CurrencySelector
+          <div className="mt-5 flex items-center">
+            <ReactCountryFlag
+              countryCode={currencyToCountryMap[selectedCurrency] || "US"}
+              svg
+              style={{
+                width: "3em",
+                height: "3em",
+                marginRight: "10px",
+              }}
+              title={selectedCurrency}
+            />
+            <span>
+              {selectedCurrency}: {exchangeRates[selectedCurrency]}
+            </span>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default CurrencySelector;
