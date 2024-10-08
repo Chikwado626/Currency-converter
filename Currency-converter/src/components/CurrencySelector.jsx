@@ -2,21 +2,31 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactCountryFlag from "react-country-flag";
 
+// Map of currency codes to country codes
 const currencyToCountryMap = {
-  USD: "US",
-  EUR: "EU",
-  NGN: "NG", // Add more mappings as necessary
+  USD: "US", // United States Dollar
+  EUR: "EU", // Euro
+  NGN: "NG", // Nigerian Naira
+  GBP: "GB", // British Pound
+  JPY: "JP", // Japanese Yen
+  CNY: "CN", // Chinese Yuan
+  RUB: "RU", // Russian Ruble
+  AED: "AE", // UAE Dirham
+  AUD: "AU", // Australian Dollar
+  CAD: "CA", // Canadian Dollar
+  // Add more mappings as necessary
 };
 
 const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
   const [exchangeRates, setExchangeRates] = useState({});
   const [loading, setLoading] = useState(true);
 
+  // Fetch exchange rates when the component mounts
   useEffect(() => {
     const fetchExchangeRates = async () => {
       try {
         const response = await axios.get(
-          "https://api.exchangerate-api.com/v4/latest/USD"
+          "https://api.exchangerate-api.com/v4/latest/USD" // Replace with your preferred API
         );
         setExchangeRates(response.data.rates);
         setLoading(false);
@@ -24,9 +34,11 @@ const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
         console.error("Error fetching exchange rates", error);
       }
     };
+
     fetchExchangeRates();
   }, []);
 
+  // Handle currency selection change
   const handleCurrencyChange = (event) => {
     onCurrencyChange(event.target.value);
   };
@@ -55,7 +67,7 @@ const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
 
           <div className="mt-5 flex items-center">
             <ReactCountryFlag
-              countryCode={currencyToCountryMap[selectedCurrency] || "US"}
+              countryCode={currencyToCountryMap[selectedCurrency] || "US"} // Default to US if not found
               svg
               style={{
                 width: "3em",
