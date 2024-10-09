@@ -1,27 +1,34 @@
-import React from "react";
 import "./App.css";
 import { Headers } from "./components/Headers";
 import Home from "./components/Home";
 import Exchangebar from "./components/Exchangebar";
 import Footer from "./components/Footer";
-import LanguageSwitcher from "./components/LanguageSwitcher"; // Import the language switcher
-import { useTranslation } from "react-i18next"; // Import translation hook
-
-import "./i18n"; // Import the i18n configuration
+import { useState } from "react";
 
 function App() {
-  const { t } = useTranslation();
+  const [fromCurrency, setFromCurrency] = useState("NGN");
+  const [toCurrency, setToCurrency] = useState("USD");
+
+  const handleSwap = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
       <Headers />
       <main className="flex-grow">
-        <div className="max-w-2xl mx-auto mt-5 text-center">
-          <h1 className="text-2xl font-bold">{t("welcome")}</h1>
-          {/* <LanguageSwitcher /> */}
-        </div>
-        <Home />
-        <Exchangebar />
+        <Home
+          fromCurrency={fromCurrency}
+          toCurrency={toCurrency}
+          setFromCurrency={setFromCurrency}
+          setToCurrency={setToCurrency}
+        />
+        <Exchangebar
+          fromCurrency={fromCurrency}
+          toCurrency={toCurrency}
+          onSwap={handleSwap}
+        />
       </main>
       <Footer />
     </div>
