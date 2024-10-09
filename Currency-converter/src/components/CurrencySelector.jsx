@@ -2,13 +2,50 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactCountryFlag from "react-country-flag";
 
+// Extended map of currency codes to country codes
 const currencyToCountryMap = {
-  USD: "US",
-  EUR: "EU",
-  NGN: "NG", // Add more mappings as necessary
+  USD: "US", // United States Dollar
+  EUR: "EU", // Euro
+  NGN: "NG", // Nigerian Naira
+  GBP: "GB", // British Pound
+  JPY: "JP", // Japanese Yen
+  CNY: "CN", // Chinese Yuan
+  RUB: "RU", // Russian Ruble
+  AED: "AE", // UAE Dirham
+  AUD: "AU", // Australian Dollar
+  CAD: "CA", // Canadian Dollar
+  INR: "IN", // Indian Rupee
+  ZAR: "ZA", // South African Rand
+  BRL: "BR", // Brazilian Real
+  MXN: "MX", // Mexican Peso
+  CHF: "CH", // Swiss Franc
+  KRW: "KR", // South Korean Won
+  SEK: "SE", // Swedish Krona
+  NOK: "NO", // Norwegian Krone
+  TRY: "TR", // Turkish Lira
+  SGD: "SG", // Singapore Dollar
+  HKD: "HK", // Hong Kong Dollar
+  ARS: "AR", // Argentine Peso
+  CLP: "CL", // Chilean Peso
+  DKK: "DK", // Danish Krone
+  EGP: "EG", // Egyptian Pound
+  NZD: "NZ", // New Zealand Dollar
+  THB: "TH", // Thai Baht
+  MYR: "MY", // Malaysian Ringgit
+  IDR: "ID", // Indonesian Rupiah
+  SAR: "SA", // Saudi Riyal
+  KWD: "KW", // Kuwaiti Dinar
+  PKR: "PK", // Pakistani Rupee
+  ILS: "IL", // Israeli New Shekel
+  COP: "CO", // Colombian Peso
+  VND: "VN", // Vietnamese Dong
 };
 
-const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
+const CurrencySelector = ({
+  selectedCurrency,
+  onCurrencyChange,
+  exchangeRate,
+}) => {
   const [exchangeRates, setExchangeRates] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -65,7 +102,8 @@ const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
               title={selectedCurrency}
             />
             <span>
-              {selectedCurrency}: {exchangeRates[selectedCurrency]}
+              {selectedCurrency}:{" "}
+              {exchangeRate || exchangeRates[selectedCurrency]}
             </span>
           </div>
         </>
