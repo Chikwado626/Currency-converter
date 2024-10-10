@@ -1,5 +1,5 @@
 import "./App.css";
-import { Headers } from "./components/Headers";
+import Headers from "./components/Headers";
 import Home from "./components/Home";
 import Exchangebar from "./components/Exchangebar";
 import Footer from "./components/Footer";
