@@ -3,6 +3,7 @@ import { Headers } from "./components/Headers";
 import Home from "./components/Home";
 import Exchangebar from "./components/Exchangebar";
 import Footer from "./components/Footer";
+import HistoricalRate from "./components/HistoricalRate";
 import { useState } from "react";
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
           toCurrency={toCurrency}
           onSwap={handleSwap}
         />
+        {/* Adding the new HistoricalRate component */}
+        <HistoricalRate fromCurrency={fromCurrency} toCurrency={toCurrency} />
       </main>
       <Footer />
     </div>
