@@ -2,7 +2,7 @@ import React from "react";
 import { FcCurrencyExchange } from "react-icons/fc";
 import { MdOutlineTranslate } from "react-icons/md";
 
-export default function Headers() {
+export default function NavBar() {
   return (
     <nav className="flex justify-between items-center mx-auto py-4 gap-10">
       <div className="flex justify-center align-center w-[300px] gap-2 mt-2">

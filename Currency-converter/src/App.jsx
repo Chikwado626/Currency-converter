@@ -1,5 +1,5 @@
 import "./App.css";
-import Headers from "./components/Headers";
+import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Exchangebar from "./components/Exchangebar";
 import Footer from "./components/Footer";
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Headers />
+      <NavBar />
       <main className="flex-grow">
         <Home
           fromCurrency={fromCurrency}
