@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CurrencySelector from "./CurrencySelector";
 import axios from "axios";
+import "./index.css";
 
 const Home = ({ fromCurrency, toCurrency, setFromCurrency, setToCurrency }) => {
   const [fromRate, setFromRate] = useState(1);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import axios from "axios";
+import "./index.css";
 
 const Exchangebar = ({ fromCurrency, toCurrency, onSwap }) => {
   const [amount, setAmount] = useState(1); // Default amount to 1

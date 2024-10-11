@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import "./index.css";
 const HistoricalRate = ({ fromCurrency, toCurrency }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [historicalRate, setHistoricalRate] = useState(null);
